@@ -3,7 +3,7 @@
 - Mohammad Ifaizul Hasan – 05311840000029
 - Anggada Putra Nagamas – 05311840000025
 
-##Teknis Pengerjaan
+## Teknis Pengerjaan
 1. Default memori UML adalah 64M, kecuali :
     a. SURABAYA : 256M
     b. MALANG : 160M
@@ -21,7 +21,7 @@
     b. MOJOKERTO : NID_DMZ_tiap_kelompok + 3
     c. TUBAN : NID_DMZ_tiap_kelompok + 4
 
-##Soal
+## Soal
 Anri adalah seorang mahasiswa tingkat akhir yang sedang mengerjakan TA mengenai DHCP dan Proxy. Bu Meguri sebagai dosen pembimbing Anri memberikan tugas pertamanya, (1) yaitu untuk membuat topologi jaringan demi kelancaran TA-nya dengan kriteria sebagai berikut:
 
 ![Gambar 1](SS_Modul3/rangkaian.jpg)
