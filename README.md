@@ -5,21 +5,21 @@
 
 ## Teknis Pengerjaan
 1. Default memori UML adalah 64M, kecuali :
-    a. SURABAYA : 256M
-    b. MALANG : 160M
-    c. MOJOKERTO : 128M
-    d. TUBAN : 128M
+- SURABAYA : 256M
+- MALANG : 160M
+- MOJOKERTO : 128M
+- TUBAN : 128M
 2. Menghitung dan menggunakan IP sesuai dengan NID Tuntap dan NID DMZ masing-masing kelompok
 3. IP Tuntap : NID_tuntap_tiap_kelompok + 1
 4. IP Interface Router SURABAYA :
-    a. eth0 : NID_tuntap_tiap_kelompok + 2
-    b. eth3 : NID_DMZ_tiap_kelompok + 1 
-    c. eth1 : 192.168.0.1
-    d. eth2 : 192.168.1.1
+- eth0 : NID_tuntap_tiap_kelompok + 2
+- eth3 : NID_DMZ_tiap_kelompok + 1 
+- eth1 : 192.168.0.1
+- eth2 : 192.168.1.1
 5. IP Server (SUBNET 2) :
-    a. MALANG :  NID_DMZ_tiap_kelompok + 2
-    b. MOJOKERTO : NID_DMZ_tiap_kelompok + 3
-    c. TUBAN : NID_DMZ_tiap_kelompok + 4
+- MALANG :  NID_DMZ_tiap_kelompok + 2
+- MOJOKERTO : NID_DMZ_tiap_kelompok + 3
+- TUBAN : NID_DMZ_tiap_kelompok + 4
 
 ## Soal
 Anri adalah seorang mahasiswa tingkat akhir yang sedang mengerjakan TA mengenai DHCP dan Proxy. Bu Meguri sebagai dosen pembimbing Anri memberikan tugas pertamanya, (1) yaitu untuk membuat topologi jaringan demi kelancaran TA-nya dengan kriteria sebagai berikut:
@@ -45,7 +45,7 @@ Pertama, akses ke proxy hanya bisa dilakukan oleh Anri sendiri sebagai user TA. 
 - User : userta_yyy
 - Password : inipassw0rdta_yyy
 
-*Keterangan* : yyy adalah nama kelompok masing-masing. Contoh: userta_c01
+**Keterangan** : yyy adalah nama kelompok masing-masing. Contoh: userta_c01
 
 
 Anri sudah menjadwal pengerjaan TA-nya (8) setiap hari Selasa-Rabu pukul 13.00-18.00. Bu Meguri membatasi penggunaan internet Anri hanya pada jadwal yang telah ditentukan itu saja. Maka diluar jam tersebut, Anri tidak dapat mengakses jaringan internet dengan proxy tersebut. Jadwal bimbingan dengan Bu Meguri adalah (9) setiap hari Selasa-Kamis pukul 21.00 - 09.00 keesokan harinya (sampai Jumat jam 09.00). Agar Anri bisa fokus mengerjakan TA, (10) setiap dia mengakses google.com, maka akan di redirect menuju monta.if.its.ac.id agar Anri selalu ingat untuk mengerjakan TA🙂.
@@ -55,13 +55,13 @@ Untuk menandakan bahwa Proxy Server ini adalah Proxy yang dibuat oleh Anri, (11)
 
 ![Gambar 2](SS_Modul3/forbidden.png)
 
-*Note* : File error page bisa diunduh dengan cara wget 10.151.36.202/ERR_ACCESS_DENIED
+**Note** : File error page bisa diunduh dengan cara wget 10.151.36.202/ERR_ACCESS_DENIED
    Tidak perlu di extract, cukup cp -r
 
 
 (12) Karena Bu Meguri dan Anri adalah tipe orang pelupa, maka untuk memudahkan mereka, Anri memiliki ide ketika menggunakan proxy cukup dengan mengetikkan domain janganlupa-ta.yyy.pw dan memasukkan port 8080. 
 
-*Keterangan* : yyy adalah nama kelompok masing-masing. Contoh: janganlupa-ta.c01.pw
+**Keterangan** : yyy adalah nama kelompok masing-masing. Contoh: janganlupa-ta.c01.pw
 
 Bantu Anri menyelesaikan TA nya dibawah bimbingan Bu Meguri!👩🏻‍🎓
 
