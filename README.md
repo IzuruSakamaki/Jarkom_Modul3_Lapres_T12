@@ -96,7 +96,8 @@ Karena TUBAN jauh dari client, maka perlu adanya perantara agar bisa saling terh
 
 - Edit network interfaces dengan menggunakan perintah `nano /etc/network/interfaces` pada uml BANYUWANGI, GRESIK, SIDOARJO, dan MADIUN
 - Tambahkan 
-``` auto lo
+``` 
+   auto lo
    iface lo inet loopback
    
    auto eth0
@@ -122,7 +123,8 @@ Karena TUBAN jauh dari client, maka perlu adanya perantara agar bisa saling terh
 - Edit file `squid.conf` pada uml MOJOKERTO dengan menggunakan perintah `nano /etc/squid/squid.conf`.
 - Tambahkan `auth_param basic program /usr/lib/squid/basic_ncsa_auth /etc/squid/passwd` untuk membuat user-password.
 - Lalu tambahkan 
-``` auth_param basic children 5
+``` 
+   auth_param basic children 5
    auth_param basic realm Proxy
    auth_param basic credentialsttl 2 hours
    auth_param basic casesensitive on
@@ -138,12 +140,14 @@ Karena TUBAN jauh dari client, maka perlu adanya perantara agar bisa saling terh
 -   `acl`  digunakan untuk mendefinisikan pengaturan akses tertentu.
 - Penambahan diatas dilakukan agar proxy hanya dapat diakses dengan pengguna yang terautentikasi.
 - Berikutnya tambahkan
-``` http_access allow USERS AVAILABLE_WORKING
+``` 
+   http_access allow USERS AVAILABLE_WORKING
    http_access deny all
 ```
 - Penambahan diatas dilakukan agar user hanya dapat menggunakan akses diwaktu tertentu berdasarkan waktu yang telah ditentukan sebelumnya.
 - Kemudian tambahkan
-``` acl REDIRECT dstdomain google.com
+``` 
+   acl REDIRECT dstdomain google.com
    deny_info http://monta.if.its.ac.id REDIRECT
    http_reply_access deny REDIRECT
 ```
@@ -153,7 +157,8 @@ Karena TUBAN jauh dari client, maka perlu adanya perantara agar bisa saling terh
 
 - Edit file `acl.conf` pada uml MOJOKERTO dengan menggunakan perintah `nano /etc/squid/acl.conf`
 - Lalu tambahkan
-``` acl AVAILABLE_WORKING time TW 13:00-18:00
+``` 
+   acl AVAILABLE_WORKING time TW 13:00-18:00
    acl AVAILABLE_WORKING time TWH 21:00-24:00
    acl AVAILABLE_WORKING time WHF 00:00-09:00
 ```
@@ -172,7 +177,8 @@ Karena TUBAN jauh dari client, maka perlu adanya perantara agar bisa saling terh
 ![Gambar 13](SS_Modul3/no12(1).jpg)
 - Edit file `/etc/bind/named.conf.local` pada uml MALANG dengan menggunakan perintah `nano /etc/bind/named.conf.local` 
 - Tambahkan 
-```   zone "janganlupa-ta.t12.pw{
+```   
+         zone "janganlupa-ta.t12.pw{
          type master;
          file "/etc/bind/jarkom/janganlupa-ta.t12.pw";
 }   
