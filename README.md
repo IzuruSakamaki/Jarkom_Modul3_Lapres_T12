@@ -71,6 +71,45 @@ Catatan: Jika tidak bisa dan menyerah untuk setup DHCP Server pada TUBAN (dengan
 **1. Anri sudah pernah mempelajari teknik Jaringan Komputer sehingga Anri dapat membuat topologi tersebut dengan mudah. Bu Meguri memerintahkan Anri untuk menjadikan SURABAYA sebagai router, MALANG sebagai DNS Server, TUBAN sebagai DHCP server, serta MOJOKERTO sebagai Proxy server, dan UML lainnya sebagai client. 
 Bu Meguri berpesan pada Anri untuk menyusun topologi secara hati-hati dan memperhatikan gambar topologi yang diberikan Bu Meguri. 
 Karena TUBAN jauh dari client, maka perlu adanya perantara agar bisa saling terhubung.**
+
+- Topologi yang dibuat sesuai dengan ketentuan teknis pengerjaan yang telah ditetapkan sebelumnya.
+- Router: SURABAYA.
+- Server: MALANG, MOJOKERTO dan TUBAN.
+- Klien: SIDOARJO, GRESIK, BANYUWANGI dan MADIUN.
+
+
 ![Gambar 3](SS_Modul3/no1(1).jpg)
 ![Gambar 4](SS_Modul3/no1(2).jpg)
 
+**2. SURABAYA ditunjuk sebagai perantara (DHCP Relay) antara DHCP Server dan client.**
+
+- Edit `isc-dhcp-relay` dengan menggunakan perintah `nano /etc/default/isc-dhcp-relay` pada uml SURABAYA (Router)
+- Tambahkan `SERVERS="10.151.77.148"` untuk mengarahkan request DHCP ke server Tuban
+- Tambahkan `INTERFACES="eth1 eth2 eth3"` untuk memberikan layanan pada eth1 eth2 eth3 terhadap request dari DHCP
+
+![Gambar 5](SS_Modul3/no2(1).jpg)
+
+- Edit `isc-dhcp-server` dengan menggunakan perintah `nano /etc/default/isc-dhcp-server` pada uml TUBAN (Server)
+- Lalu tambahkan `INTERFACESv4="eth0"` untuk memberikan layanan pada eth0 terhadap request dari DHCP
+
+![Gambar 6](SS_Modul3/no2(2).jpg)
+
+- Edit network interfaces dengan menggunakan perintah `nano /etc/network/interfaces` pada uml BANYUWANGI, GRESIK, SIDOARJO, dan MADIUN
+- Tambahkan 
+`  auto lo
+   iface lo inet loopback
+   
+   auto eth0
+   iface eth0 inet dhcp
+`
+
+![Gambar 7](SS_Modul3/no2(3).jpg)
+
+**3-6**
+- Seluruh client TIDAK DIPERBOLEHKAN menggunakan konfigurasi IP Statis.
+- Client pada subnet 1 mendapatkan range IP dari 192.168.0.10 sampai 192.168.0.100 dan 192.168.0.110 sampai 192.168.0.200.
+- Client pada subnet 3 mendapatkan range IP dari 192.168.1.50 sampai 192.168.1.70.
+- Client mendapatkan DNS Malang dan DNS 202.46.129.2 dari DHCP
+- Client di subnet 1 mendapatkan peminjaman alamat IP selama 5 menit, sedangkan client pada subnet 3 mendapatkan peminjaman IP selama 10 menit.
+
+![Gambar 8](SS_Modul3/no3,4,5,6.jpg)
