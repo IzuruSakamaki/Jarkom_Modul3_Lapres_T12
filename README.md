@@ -96,12 +96,12 @@ Karena TUBAN jauh dari client, maka perlu adanya perantara agar bisa saling terh
 
 - Edit network interfaces dengan menggunakan perintah `nano /etc/network/interfaces` pada uml BANYUWANGI, GRESIK, SIDOARJO, dan MADIUN
 - Tambahkan 
-`` auto lo
+``` auto lo
    iface lo inet loopback
    
    auto eth0
    iface eth0 inet dhcp
-``
+```
 
 ![Gambar 7](SS_Modul3/no2(3).jpg)
 
@@ -117,32 +117,46 @@ Karena TUBAN jauh dari client, maka perlu adanya perantara agar bisa saling terh
 ![Gambar 8](SS_Modul3/no3,4,5,6.jpg)
 
 **7-10. User Autentikasi, Jadwal kerja, dan ketika mengakses google.com maka akan keredirect ke monta.if.its.ac.id**
+-   `http_port 8080`  : Port yang digunakan untuk mengakses proxy, dalam kasus ini adalah  **8080**. (Sintaks:  `http_port 'PORT_YANG_DIINGINKAN'`)
+-   `visible_hostname mojokerto`  : Nama proxy yang akan terlihat oleh user (Sintaks:  `visible_hostname 'NAMA_YANG_DIINGINKAN'`)
 - Edit file `squid.conf` pada uml MOJOKERTO dengan menggunakan perintah `nano /etc/squid/squid.conf`.
 - Tambahkan `auth_param basic program /usr/lib/squid/basic_ncsa_auth /etc/squid/passwd` untuk membuat user-password.
 - Lalu tambahkan 
-`` auth_param basic children 5
+``` auth_param basic children 5
    auth_param basic realm Proxy
    auth_param basic credentialsttl 2 hours
    auth_param basic casesensitive on
-   acl USERS proxy_auth REQUIRED``
+   acl USERS proxy_auth REQUIRED
+```
+**Keterangan:**
+-   `auth_param`  digunakan untuk mengatur autentikasi (Sintaks:  `auth_param 'SCHEME' 'PARAMETER' 'SETTING'`. 
+-   `program`  : Perintah untuk mendefiniskan autentikator eksternal.
+-   `children`  : Mendefinisikan jumlah maksimal autentikator muncul.
+-   `realm`  : Teks yang akan muncul pada pop-up autentikasi.
+-   `credentialsttl`  : Mengatur masa aktif suatu autentikasi berlaku.
+-   `casesensitive`  : Mengatur apakah  **username**  bersifat case sensitive atau tidak.
+-   `acl`  digunakan untuk mendefinisikan pengaturan akses tertentu.
 - Penambahan diatas dilakukan agar proxy hanya dapat diakses dengan pengguna yang terautentikasi.
 - Berikutnya tambahkan
-`` http_access allow USERS AVAILABLE_WORKING
-   http_access deny all``
+``` http_access allow USERS AVAILABLE_WORKING
+   http_access deny all
+```
 - Penambahan diatas dilakukan agar user hanya dapat menggunakan akses diwaktu tertentu berdasarkan waktu yang telah ditentukan sebelumnya.
 - Kemudian tambahkan
-`` acl REDIRECT dstdomain google.com
+``` acl REDIRECT dstdomain google.com
    deny_info http://monta.if.its.ac.id REDIRECT
-   http_reply_access deny REDIRECT``
+   http_reply_access deny REDIRECT
+```
 - Penambahan diatas dilakukan agar ketika pengguna mengakses **google.com** maka akan diredirect ke **monta.if.its.ac.id**
 
 ![Gambar 9](SS_Modul3/no7,8,9,10(1).jpg)
 
 - Edit file `acl.conf` pada uml MOJOKERTO dengan menggunakan perintah `nano /etc/squid/acl.conf`
 - Lalu tambahkan
-`` acl AVAILABLE_WORKING time TW 13:00-18:00
+``` acl AVAILABLE_WORKING time TW 13:00-18:00
    acl AVAILABLE_WORKING time TWH 21:00-24:00
-   acl AVAILABLE_WORKING time WHF 00:00-09:00``
+   acl AVAILABLE_WORKING time WHF 00:00-09:00
+```
    
 ![Gambar 10](SS_Modul3/no7,8,9,10(1).jpg)
 
@@ -150,3 +164,21 @@ Karena TUBAN jauh dari client, maka perlu adanya perantara agar bisa saling terh
 - Download file pendukung untuk nomor 11 dengan menggunakan perintah `wget 10.151.36.202/error403.tar.gz` lalu extract file tersebut 
 ![Gambar 11](SS_Modul3/no11(1).jpg)
 ![Gambar 12](SS_Modul3/no11(2).jpg)
+
+**12. Menggunakan proxy hanya dengan mengetik domain janganlupa-ta.t12.pw port 8080**
+- Edit file `/etc/bind/jarkom/janganlupa-ta.t12.pw` pada uml MALANG dengan menggunakan perintah `nano /etc/bind/jarkom/janganlupa-ta.t12.pw` seperti gambar berikut:
+
+![Gambar 12](SS_Modul3/no12(1).jpg)
+- Edit file `/etc/bind/named.conf.local` pada uml MALANG dengan menggunakan perintah `nano /etc/bind/named.conf.local` 
+- Tambahkan 
+```   zone "janganlupa-ta.t12.pw{
+         type master;
+         file "/etc/bind/jarkom/janganlupa-ta.t12.pw";
+}   
+```
+- Tampilan file:
+
+![Gambar 12](SS_Modul3/no12(2).jpg)
+- Lalu ubah pengaturan proxy browser seperti gambar berikut ini:
+
+![Gambar 12](SS_Modul3/no12(3).jpg)
