@@ -161,14 +161,15 @@ Karena TUBAN jauh dari client, maka perlu adanya perantara agar bisa saling terh
 ![Gambar 10](SS_Modul3/no7,8,9,10(1).jpg)
 
 **11. Error Page Default Squid**
-- Download file pendukung untuk nomor 11 dengan menggunakan perintah `wget 10.151.36.202/error403.tar.gz` lalu extract file tersebut 
+- Download file pendukung untuk nomor 11 dengan menggunakan perintah `wget 10.151.36.202/error403.tar.gz` lalu extract file tersebut dengan perintah `tar -xvf error403.tar.gz` di `/usr/share/squid/errors/English`
+
 ![Gambar 11](SS_Modul3/no11(1).jpg)
 ![Gambar 12](SS_Modul3/no11(2).jpg)
 
 **12. Menggunakan proxy hanya dengan mengetik domain janganlupa-ta.t12.pw port 8080**
 - Edit file `/etc/bind/jarkom/janganlupa-ta.t12.pw` pada uml MALANG dengan menggunakan perintah `nano /etc/bind/jarkom/janganlupa-ta.t12.pw` seperti gambar berikut:
 
-![Gambar 12](SS_Modul3/no12(1).jpg)
+![Gambar 13](SS_Modul3/no12(1).jpg)
 - Edit file `/etc/bind/named.conf.local` pada uml MALANG dengan menggunakan perintah `nano /etc/bind/named.conf.local` 
 - Tambahkan 
 ```   zone "janganlupa-ta.t12.pw{
@@ -176,9 +177,10 @@ Karena TUBAN jauh dari client, maka perlu adanya perantara agar bisa saling terh
          file "/etc/bind/jarkom/janganlupa-ta.t12.pw";
 }   
 ```
+- Restart Bind9 dengan perintah `service bind9 restart`
 - Tampilan file:
 
-![Gambar 12](SS_Modul3/no12(2).jpg)
+![Gambar 14](SS_Modul3/no12(2).jpg)
 - Lalu ubah pengaturan proxy browser seperti gambar berikut ini:
 
-![Gambar 12](SS_Modul3/no12(3).jpg)
+![Gambar 15](SS_Modul3/no12(3).jpg)
