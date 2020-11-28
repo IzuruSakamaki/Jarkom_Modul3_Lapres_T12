@@ -96,20 +96,57 @@ Karena TUBAN jauh dari client, maka perlu adanya perantara agar bisa saling terh
 
 - Edit network interfaces dengan menggunakan perintah `nano /etc/network/interfaces` pada uml BANYUWANGI, GRESIK, SIDOARJO, dan MADIUN
 - Tambahkan 
-`  auto lo
+`` auto lo
    iface lo inet loopback
    
    auto eth0
    iface eth0 inet dhcp
-`
+``
 
 ![Gambar 7](SS_Modul3/no2(3).jpg)
 
-**3-6**
+**3-6. Settingan Subnet**
+- Edit file `dhcpd.conf` dengan menggunakan perintah `nano /etc/dhcp/dhcpd.conf` pada uml TUBAN
+- Arahkan ke Router SURABAYA dengan menambahkan `subnet 10.151.77.144 netmask 255.255.255.248{}`
 - Seluruh client TIDAK DIPERBOLEHKAN menggunakan konfigurasi IP Statis.
 - Client pada subnet 1 mendapatkan range IP dari 192.168.0.10 sampai 192.168.0.100 dan 192.168.0.110 sampai 192.168.0.200.
 - Client pada subnet 3 mendapatkan range IP dari 192.168.1.50 sampai 192.168.1.70.
 - Client mendapatkan DNS Malang dan DNS 202.46.129.2 dari DHCP
-- Client di subnet 1 mendapatkan peminjaman alamat IP selama 5 menit, sedangkan client pada subnet 3 mendapatkan peminjaman IP selama 10 menit.
+- Client di subnet 1 mendapatkan peminjaman alamat IP selama 5 menit `default-lease-time 300;`, sedangkan client pada subnet 3 mendapatkan peminjaman IP selama 10 menit `default-lease-time 600;`.
 
 ![Gambar 8](SS_Modul3/no3,4,5,6.jpg)
+
+**7-10. User Autentikasi, Jadwal kerja, dan ketika mengakses google.com maka akan keredirect ke monta.if.its.ac.id**
+- Edit file `squid.conf` pada uml MOJOKERTO dengan menggunakan perintah `nano /etc/squid/squid.conf`.
+- Tambahkan `auth_param basic program /usr/lib/squid/basic_ncsa_auth /etc/squid/passwd` untuk membuat user-password.
+- Lalu tambahkan 
+`` auth_param basic children 5
+   auth_param basic realm Proxy
+   auth_param basic credentialsttl 2 hours
+   auth_param basic casesensitive on
+   acl USERS proxy_auth REQUIRED``
+- Penambahan diatas dilakukan agar proxy hanya dapat diakses dengan pengguna yang terautentikasi.
+- Berikutnya tambahkan
+`` http_access allow USERS AVAILABLE_WORKING
+   http_access deny all``
+- Penambahan diatas dilakukan agar user hanya dapat menggunakan akses diwaktu tertentu berdasarkan waktu yang telah ditentukan sebelumnya.
+- Kemudian tambahkan
+`` acl REDIRECT dstdomain google.com
+   deny_info http://monta.if.its.ac.id REDIRECT
+   http_reply_access deny REDIRECT``
+- Penambahan diatas dilakukan agar ketika pengguna mengakses **google.com** maka akan diredirect ke **monta.if.its.ac.id**
+
+![Gambar 9](SS_Modul3/no7,8,9,10(1).jpg)
+
+- Edit file `acl.conf` pada uml MOJOKERTO dengan menggunakan perintah `nano /etc/squid/acl.conf`
+- Lalu tambahkan
+`` acl AVAILABLE_WORKING time TW 13:00-18:00
+   acl AVAILABLE_WORKING time TWH 21:00-24:00
+   acl AVAILABLE_WORKING time WHF 00:00-09:00``
+   
+![Gambar 10](SS_Modul3/no7,8,9,10(1).jpg)
+
+**11. Error Page Default Squid**
+- Download file pendukung untuk nomor 11 dengan menggunakan perintah `wget 10.151.36.202/error403.tar.gz` lalu extract file tersebut 
+![Gambar 11](SS_Modul3/no11(1).jpg)
+![Gambar 12](SS_Modul3/no11(2).jpg)
